@@ -3,3 +3,64 @@ title: "Simple document"
 output: github_document
 ---
 
+## Loading the data!
+
+```{r}
+library(tidyverse)
+```
+
+
+Let's import the `FAS_litters.csv` using a relative path. 
+
+```{r}
+litters_df = 
+  read_csv("data/FAS_litters.csv")
+
+litters_df = 
+  janitor::clean_names(litters_df)
+#inside the janitor package, I can just load the function I need to have (and not all the others)
+```
+
+Let's import the `FAS_litters.csv` using an absolute path. 
+
+```{r}
+litters_df_absolute = 
+  read.csv("~/Desktop/P8105/data_wrangling_i/data/FAS_litters.csv")
+
+litters_df_absolute = 
+  janitor::clean_names(litters_df_absolute)
+```
+
+Now we're going to load in the `FAS_pups.csv` dataset. 
+
+```{r}
+pups_df = 
+  read_csv("data/FAS_pups.csv")
+
+pups_df = 
+  janitor::clean_names(pups_df)
+```
+
+## Looking at the data!!
+
+```{r}
+litters_df
+
+head(litters_df)
+
+tail(litters_df)
+```
+
+To see the whole dataset, use `View`. 
+
+```{r, eval = FALSE}
+view(litters_df) #don't include in your R markdown files!!! very big. 
+```
+
+Let's look at a data summary.
+```{r}
+str(litters_df)
+
+skimr::skim(litters_df)
+```
+
