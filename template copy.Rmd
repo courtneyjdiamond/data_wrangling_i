@@ -9,4 +9,51 @@ output: github_document
 library(tidyverse)
 ```
 
+Load FAS litters and pups
+
+```{r}
+litters_df = 
+  read_csv("data/FAS_litters.csv")
+litters_df = janitor::clean_names(litters_df)
+
+pups_df = 
+  read_csv("data/FAS_pups.csv")
+pups_df = janitor::clean_names(pups_df)
+```
+
+## `select` function
+
+`Select` is used to select columns.
+
+```{r}
+select(litters_df, group, litter_number, gd0_weight)
+
+select(litters_df, group, gd0_weight:gd_of_birth) ##everything up to and including these columns
+
+select(litters_df, group, starts_with("pups")) ##selects all that begin with pups! also have ends with and contains.
+
+select(litters_df, -litter_number) ## - means "not this"
+
+select(litters_df, group, litter_id = litter_number) ##select and replace the name of a column
+
+select(litters_df, group, litter_id = litter_number, everything()) ## lets you keep all the columns, good for reordering the columns 
+
+rename(litters_df, litter_id = litter_number) ##amother way to rename a column and keep all the others
+
+relocate(litters_df, litter_number)
+
+```
+
+What's the difference between `select` and `pull`?
+
+```{r}
+select(litters_df, group) ##preserves the data in a dataframe!!!
+pull(litters_df, group) ##data no longer in a dataframe, but still adheres to tidyverse logic
+```
+
+## Learning assessment 
+
+```{r}
+select(pups_df, litter_number, sex, pd_ears)
+```
 
