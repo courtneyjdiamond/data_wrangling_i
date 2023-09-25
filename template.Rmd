@@ -113,3 +113,25 @@ pulse_df =
   read_sas("data/public_pulse_data.sas7bdat")
 ```
 
+
+## Base R...
+
+```{r, eval = FALSE}
+litters_df = 
+  read.csv("data/FAS_litters.csv") #imports the data as a dataframe and defaults to showing the whole thing!! 
+
+#using the dollar signs is also a bad idea because it autocompletes and if your variable names are similar, it might autopopulate the wrong one. 
+```
+
+## Exporting the cleaned data
+
+```{r}
+litters_df_cleaned = 
+  read_csv("data/FAS_litters.csv")
+
+litters_df_cleaned = 
+  janitor::clean_names(litters_df_cleaned)
+
+write_csv(litters_df_cleaned, "data/FAS_litters_cleaned.csv")
+```
+
