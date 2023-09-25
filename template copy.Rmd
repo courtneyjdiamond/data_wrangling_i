@@ -1,5 +1,5 @@
 ---
-title: "Simple document"
+title: "Data manipulation"
 output: github_document
 ---
 
@@ -56,4 +56,54 @@ pull(litters_df, group) ##data no longer in a dataframe, but still adheres to ti
 ```{r}
 select(pups_df, litter_number, sex, pd_ears)
 ```
+
+## `filter` function
+
+Get rid of rows using `filter`
+
+```{r}
+filter(litters_df, group == "Con7")
+
+filter(litters_df, group != "Con8")
+
+filter(litters_df, gd0_weight > 20)
+
+filter(litters_df, group == "Con7" | group == "Con8")
+
+filter(litters_df, group %in% c("Con7", "Con8")) ##this and the previous accomplish the same thing
+
+filter(litters_df, group %in% c("Con7", "Con8"), gd0_weight >20) ##this sequentially adds an additional filter to the results pulled from the first part 
+```
+
+What about getting rid of NAs? Don't use `filter`, use `drop_na`
+
+```{r}
+drop_na(litters_df)
+drop_na(litters_df, gd0_weight)
+```
+
+
+## `mutate` function
+
+This is used to change variables.
+
+```{r}
+mutate(litters_df, wt_gain = gd18_weight - gd0_weight)
+
+mutate(litters_df, group = str_to_lower(group))
+
+mutate(litters_df,
+       wt_gain = gd18_weight - gd0_weight, 
+       group = str_to_lower(group)) ##can string these together with commas
+```
+
+## `arrange` function
+
+```{r}
+arrange(litters_df, gd0_weight)
+arrange(litters_df, group, gd0_weight) ##order that you want the varaibles prioritized for arranging!
+```
+
+## pipes
+
 
