@@ -18,6 +18,11 @@ library(tidyverse)
     ## ✖ dplyr::lag()    masks stats::lag()
     ## ℹ Use the conflicted package (<http://conflicted.r-lib.org/>) to force all conflicts to become errors
 
+``` r
+library(readxl)
+library(haven)
+```
+
 Let’s import the `FAS_litters.csv` using a relative path.
 
 ``` r
@@ -241,4 +246,21 @@ litters_df_4 =
       Group = col_factor(),
       `GD0 weight` = col_character()
     ))
+```
+
+\##Other file types
+
+Import and XLSX file first. Readxl is SUPER similar to read_csv and
+developed by the same people, so all the same principles apply!
+
+``` r
+mlb_df = 
+  read_excel("data/mlb11.xlsx")
+```
+
+Now we’re going to import a SAS file. You need the haven library.
+
+``` r
+pulse_df = 
+  read_sas("data/public_pulse_data.sas7bdat")
 ```

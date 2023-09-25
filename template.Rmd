@@ -7,6 +7,8 @@ output: github_document
 
 ```{r}
 library(tidyverse)
+library(readxl)
+library(haven)
 ```
 
 
@@ -93,5 +95,21 @@ litters_df_4 =
       Group = col_factor(),
       `GD0 weight` = col_character()
     ))
+```
+
+##Other file types
+
+Import and XLSX file first. Readxl is SUPER similar to read_csv and developed by the same people, so all the same principles apply!
+
+```{r}
+mlb_df = 
+  read_excel("data/mlb11.xlsx")
+```
+
+Now we're going to import a SAS file. You need the haven library. 
+
+```{r}
+pulse_df = 
+  read_sas("data/public_pulse_data.sas7bdat")
 ```
 
