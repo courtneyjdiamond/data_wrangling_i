@@ -129,7 +129,7 @@ To see the whole dataset, use `View`.
 view(litters_df) #don't include in your R markdown files!!! very big. 
 ```
 
-Let’s look at a data summary.
+Let’s look at some data summaries.
 
 ``` r
 str(litters_df)
@@ -192,3 +192,53 @@ Data summary
 | pups_born_alive |         0 |          1.00 |  7.35 | 1.76 |  3.0 |  6.00 |  8.00 |  8.00 | 11.0 | ▁▃▂▇▁ |
 | pups_dead_birth |         0 |          1.00 |  0.33 | 0.75 |  0.0 |  0.00 |  0.00 |  0.00 |  4.0 | ▇▂▁▁▁ |
 | pups_survive    |         0 |          1.00 |  6.41 | 2.05 |  1.0 |  5.00 |  7.00 |  8.00 |  9.0 | ▁▃▂▇▇ |
+
+\##Options in read\_\*
+
+What if we need to skip over some rows of data?
+
+``` r
+litters_df_2 = 
+  read_csv(
+    "data/FAS_litters.csv",
+    skip = 10, col_names = FALSE)
+```
+
+    ## Rows: 40 Columns: 8
+    ## ── Column specification ────────────────────────────────────────────────────────
+    ## Delimiter: ","
+    ## chr (2): X1, X2
+    ## dbl (6): X3, X4, X5, X6, X7, X8
+    ## 
+    ## ℹ Use `spec()` to retrieve the full column specification for this data.
+    ## ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.
+
+Let’s look at some NA values- if we know a specific value is used to
+represent missing data, we can specify that when we load the data.
+
+``` r
+litters_df_3 = 
+  read_csv("data/FAS_litters.csv",
+           na = c("NA", 19))
+```
+
+    ## Rows: 49 Columns: 8
+    ## ── Column specification ────────────────────────────────────────────────────────
+    ## Delimiter: ","
+    ## chr (2): Group, Litter Number
+    ## dbl (6): GD0 weight, GD18 weight, GD of Birth, Pups born alive, Pups dead @ ...
+    ## 
+    ## ℹ Use `spec()` to retrieve the full column specification for this data.
+    ## ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.
+
+Specifying column types
+
+``` r
+litters_df_4 = 
+  read_csv(
+    "data/FAS_litters.csv", 
+    col_types = cols(
+      Group = col_factor(),
+      `GD0 weight` = col_character()
+    ))
+```

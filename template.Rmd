@@ -57,10 +57,41 @@ To see the whole dataset, use `View`.
 view(litters_df) #don't include in your R markdown files!!! very big. 
 ```
 
-Let's look at a data summary.
+Let's look at some data summaries.
 ```{r}
 str(litters_df)
 
 skimr::skim(litters_df)
+```
+
+##Options in read_*
+
+What if we need to skip over some rows of data? 
+
+```{r}
+litters_df_2 = 
+  read_csv(
+    "data/FAS_litters.csv",
+    skip = 10, col_names = FALSE)
+```
+
+
+Let's look at some NA values- if we know a specific value is used to represent missing data, we can specify that when we load the data.
+```{r}
+litters_df_3 = 
+  read_csv("data/FAS_litters.csv",
+           na = c("NA", 19))
+```
+
+Specifying column types
+
+```{r}
+litters_df_4 = 
+  read_csv(
+    "data/FAS_litters.csv", 
+    col_types = cols(
+      Group = col_factor(),
+      `GD0 weight` = col_character()
+    ))
 ```
 
