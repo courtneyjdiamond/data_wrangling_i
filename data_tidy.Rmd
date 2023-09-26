@@ -77,3 +77,28 @@ lotr_df =
     )
 ```
 
+## Revisit FAS to join datasets
+
+```{r}
+litters_df_2 = 
+  read_csv("data/FAS_litters.csv") |> 
+  janitor::clean_names() |> 
+  mutate(wt_gain = gd18_weight - gd0_weight) |> 
+  select(litter_number, group, wt_gain) |> 
+  separate(group, into = c("dose", "day_of_tx"), 3) ##this lets me separate the column into two separate variables. 
+
+pups_df_2 = 
+  read_csv("data/FAS_pups.csv") |> 
+  janitor::clean_names() |> 
+  mutate(
+    sex = case_match(
+      sex,
+      1 ~ "male",
+      2 ~ "female"
+    )
+  ) ##always code your categorical using the actual levels, not numeric- because you shouldn't ever assume your downstream user knows what the numeric corresponds to
+
+fas_df = 
+  left_join(pups_df_2, litters_df_2, by = "litter_number")
+```
+
